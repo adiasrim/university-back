@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  app:
+    container_name: app
+    image: lazerg/laravel:php81
+    ports:
+      - "8000:80"
+    volumes:
+      - .:/var/www/app
+
+
+  database:
+    container_name: database
+    image: mysql:8.0.29
+    environment:
+      MYSQL_DATABASE: app
+      MYSQL_ROOT_PASSWORD: password
+    volumes:
+      - database:/var/lib/mysql
+    ports:
+      - "8306:3306"
+
+  phpmyadmin:
+    container_name: phpmyadmin
+    image: phpmyadmin/phpmyadmin:5.2.0
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+    ports:
+      - "8307:80"
+    depends_on:
+      - database
+
+volumes:
+  database:
