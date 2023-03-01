@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Authentication\CheckController;
+use App\Http\Controllers\Authentication\LoginController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +15,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+    'prefix'     => 'auth',
+    'as'         => 'auth.',
+], function () {
+    Route::post('login', LoginController::class)->name('login');
+    Route::get('check', CheckController::class)->name('check');
 });

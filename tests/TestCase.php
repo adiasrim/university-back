@@ -2,9 +2,29 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Storage;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, FactoryHelpers, DatabaseMigrations, WithFaker;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+
+        $this->withExceptionHandling();
+
+        /**
+         * Seed necessary data
+         */
+        $this->artisan('db:seed');
+
+        /**
+         * Create a temporary storage path for testing
+         */
+        Storage::fake();
+    }
 }
