@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "121ea3a2fffe49b3ef9aa4d064b28c19",
+    "content-hash": "74f2dd4218bc6bae504f703c31701570",
     "packages": [
         {
             "name": "brick/math",
@@ -1373,6 +1373,50 @@
                 "source": "https://github.com/laravel/tinker/tree/v2.8.1"
             },
             "time": "2023-02-15T16:40:09+00:00"
+        },
+        {
+            "name": "lazerg/laravel-enum-pro",
+            "version": "v0.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lazerg/laravel-enum-pro.git",
+                "reference": "eed28df02eb3357232adb8f42286856e8096f1ef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lazerg/laravel-enum-pro/zipball/eed28df02eb3357232adb8f42286856e8096f1ef",
+                "reference": "eed28df02eb3357232adb8f42286856e8096f1ef",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "^6.0|^7.0|^8.0|^9.0|^10.0",
+                "php": "^8.1"
+            },
+            "require-dev": {
+                "pestphp/pest": "^1.22"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Lazerg\\LaravelEnumPro\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "lazerg",
+                    "email": "lazerg2@gmail.com"
+                }
+            ],
+            "description": "Laravel Enum Pro",
+            "support": {
+                "issues": "https://github.com/lazerg/laravel-enum-pro/issues",
+                "source": "https://github.com/lazerg/laravel-enum-pro/tree/v0.5.0"
+            },
+            "time": "2023-02-15T18:24:38+00:00"
         },
         {
             "name": "league/commonmark",

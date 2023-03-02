@@ -11,6 +11,8 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication, FactoryHelpers, DatabaseMigrations, WithFaker;
 
+    protected bool $shouldRunSeeders = false;
+
     protected function setUp(): void
     {
         parent::setUp();
@@ -20,7 +22,9 @@ abstract class TestCase extends BaseTestCase
         /**
          * Seed necessary data
          */
-        $this->artisan('db:seed');
+        if ($this->shouldRunSeeders) {
+            $this->artisan('db:seed');
+        }
 
         /**
          * Create a temporary storage path for testing

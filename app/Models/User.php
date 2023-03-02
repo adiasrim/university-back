@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Enums\UserTypes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -41,4 +42,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getFullNameAttribute(): string
+    {
+        if ($this->last_name) {
+            return "{$this->first_name} {$this->last_name}";
+        }
+
+        return $this->first_name;
+    }
+
+    public function isTeacher(): bool
+    {
+        return $this->type === UserTypes::TEACHER();
+    }
 }

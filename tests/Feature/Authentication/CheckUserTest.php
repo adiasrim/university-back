@@ -8,7 +8,9 @@ class CheckUserTest extends TestCase
 {
     public function test_check_user(): void
     {
-        $user = $this->createUser();
+        $user = $this->createUser([
+            'email'    => 'akhmedovmirik@gmail.com',
+        ]);
 
         $this->authenticate($user);
 

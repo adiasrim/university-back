@@ -8,7 +8,9 @@ class LoginUserTest extends TestCase
 {
     public function test_user_can_login(): void
     {
-        $this->createUser();
+        $this->createUser([
+            'email'    => 'akhmedovmirik@gmail.com',
+        ]);
 
         $this->postJson(route('auth.login'), [
             'email'    => 'akhmedovmirik@gmail.com',
@@ -22,7 +24,9 @@ class LoginUserTest extends TestCase
 
     public function test_user_cannot_login_with_invalid_password(): void
     {
-        $this->createUser();
+        $this->createUser([
+            'email'    => 'akhmedovmirik@gmail.com',
+        ]);
 
         $this->postJson(route('auth.login'), [
             'email'    => 'akhmedovmirik@gmail.com',
@@ -32,7 +36,9 @@ class LoginUserTest extends TestCase
 
     public function test_authenticate_user_cannot_login(): void
     {
-        $user = $this->createUser();
+        $user = $this->createUser([
+            'email'    => 'akhmedovmirik@gmail.com',
+        ]);
 
         $this->authenticate($user);
 
