@@ -15,7 +15,7 @@ class LoginController extends Controller
     /**
      * @param LoginRequest $request
      * @param LoginUserAction $userAction
-     * @return JsonResponse
+     * @return LoginUserResource
      */
     public function __invoke(LoginRequest $request, LoginUserAction $userAction)
     {
@@ -23,8 +23,6 @@ class LoginController extends Controller
 
         $user = $userAction->execute($data);
 
-        return response()->json([
-            'data' => LoginUserResource::make($user),
-        ], Response::HTTP_OK);
+        return new LoginUserResource($user);
     }
 }

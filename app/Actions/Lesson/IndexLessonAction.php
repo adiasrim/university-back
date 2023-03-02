@@ -12,14 +12,14 @@ class IndexLessonAction
     {
     }
 
-    public function execute(array $data, User $user): Collection
+    public function execute(?string $filter, User $user): Collection
     {
         return $this
             ->lesson
             ->query()
             ->searchByUser($user)
             ->withRelations()
-            ->filter($data)
+            ->filter($filter)
             ->get();
     }
 }

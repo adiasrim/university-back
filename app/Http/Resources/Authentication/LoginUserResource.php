@@ -18,10 +18,10 @@ class LoginUserResource extends JsonResource
     {
         return [
             'token' => $this->createToken('auth_token')->plainTextToken,
-            'user' => [
-                'id' => $this->id,
-                'name' => $this->name,
-                'email' => $this->email,
+            'user'  => [
+                'id'        => $this->id,
+                'full_name' => $this->full_name,
+                'email'     => $this->email,
             ]
         ];
     }

@@ -14,53 +14,51 @@ trait LessonScopes
                 return $query->where('teacher_id', $user->id);
             });
     }
-    public function scopeFilter(Builder $query, array $data)
+
+    public function scopeFilter(Builder $query, ?string $filter)
     {
         return $query
-            ->filterByGroup($data['group'] ?? null)
-            ->filterByTeacher($data['teacher'] ?? null)
-            ->filterByRoom($data['room'] ?? null)
-            ->filterByStartAt($data['start_at'] ?? null)
-            ->filterByEndAt($data['end_at'] ?? null);
+            ->when($filter, function (Builder $query, string $filter) {
+                return $query
+                    ->filterByLesson($filter)
+                    ->filterByTeacher($filter)
+                    ->filterByGroup($filter)
+                    ->filterByRoom($filter);
+            });
+    }
+
+    public function scopeFilterByLesson(Builder $builder, ?string $lesson): Builder
+    {
+        return $builder
+            ->where('title', 'like', "%{$lesson}%")
+            ->orWhere('start_at', 'like', "%{$lesson}%")
+            ->orWhere('end_at', 'like', "%{$lesson}%");
     }
 
     public function scopeFilterByGroup(Builder $builder, ?string $group): Builder
     {
         return $builder
-            ->when($group, fn($query) => $query
-                ->whereHas('group', fn($query) => $query
-                    ->where('name', 'like', '%' . $group . '%')));
+            ->orWhereHas('group', function (Builder $query) use ($group) {
+                $query->where('name', 'like', "%{$group}%");
+            });
     }
 
     public function scopeFilterByTeacher(Builder $builder, ?string $teacher): Builder
     {
         return $builder
-            ->when($teacher, fn($query) => $query
-                ->whereHas('teacher', fn($query) => $query
-                    ->where('first_name', 'like', '%' . $teacher . '%')
-                    ->orWhere('last_name', 'like', '%' . $teacher . '%')));
+            ->orWhereHas('teacher', function (Builder $query) use ($teacher) {
+                $query
+                    ->where('first_name', 'like', "%{$teacher}%")
+                    ->orWhere('last_name', 'like', "%{$teacher}%");
+            });
     }
 
     public function scopeFilterByRoom(Builder $builder, ?string $room): Builder
     {
         return $builder
-            ->when($room, fn($query) => $query
-                ->whereHas('room', fn($query) => $query
-                    ->where('name', 'like', '%' . $room . '%')));
-    }
-
-    public function scopeFilterByStartAt(Builder $builder, ?string $startAt): Builder
-    {
-        return $builder
-            ->when($startAt, fn($query) => $query
-                ->where('start_at', $startAt));
-    }
-
-    public function scopeFilterByEndAt(Builder $builder, ?string $endAt): Builder
-    {
-        return $builder
-            ->when($endAt, fn($query) => $query
-                ->where('end_at', $endAt));
+            ->orWhereHas('room', function (Builder $query) use ($room) {
+                $query->where('name', 'like', "%{$room}%");
+            });
     }
 
     public function scopeWithRelations(Builder $query): Builder

@@ -11,10 +11,8 @@ class LessonController extends Controller
 {
     public function index(Request $request, IndexLessonAction $lessonAction)
     {
-        $lessons = $lessonAction->execute($request->all(), Auth::user());
+        $lessons = $lessonAction->execute($request->get('filter'), Auth::user());
 
-        return response()->json([
-            'data' => IndexLessonResource::collection($lessons)
-        ]);
+        return IndexLessonResource::collection($lessons);
     }
 }
